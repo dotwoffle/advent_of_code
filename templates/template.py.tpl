@@ -5,12 +5,15 @@ https://adventofcode.com/[[CHALLENGE_YEAR]]/day/[[CHALLENGE_DAY]]
 
 import os
 
-AOC_TOP_ENV = "AOC_TOP"
+from time import time_ns
 
-def challenge_part_1(challenge_input: list[str]) -> None:
+AOC_TOP_ENV = "AOC_TOP"
+NS_TO_MS = 0.000001
+
+def challenge_part_1(challenge_input: list[str]) -> int:
     pass
 
-def challenge_part_2(challenge_input: list[str]) -> None:
+def challenge_part_2(challenge_input: list[str]) -> int:
     pass
 
 def main() -> None:
@@ -26,9 +29,24 @@ def main() -> None:
 
     print("Starting challenge")
     print("-------------- PART 1 --------------")
-    challenge_part_1(challenge_input[:])
+
+    part_1_start_time = time_ns()
+
+    print(challenge_part_1(challenge_input[:]))
+
+    part_1_end_time = time_ns()
+
     print("-------------- PART 2 --------------")
-    challenge_part_2(challenge_input[:])
+
+    part_2_start_time = time_ns()
+
+    print(challenge_part_2(challenge_input[:]))
+
+    part_2_end_time = time_ns()
+
+    print("--------------- DONE ---------------")
+    print(f"Part 1 executed in {(part_1_end_time - part_1_start_time) * NS_TO_MS} ms")
+    print(f"Part 2 executed in {(part_2_end_time - part_2_start_time) * NS_TO_MS} ms")
 
 if __name__ == "__main__":
     main()
