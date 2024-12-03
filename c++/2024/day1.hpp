@@ -1,11 +1,31 @@
 #pragma once
 
+#include "Challenge.hpp"
+
 #include <string>
 #include <string_view>
 #include <vector>
 
-constexpr std::string_view INPUT_FILE_PATH{ "C:\\Users\\loren\\code\\advent_of_code\\inputs\\2024\\day1.txt" };
+namespace aoc {
 
-size_t challengePart1(const std::vector<std::string>& challengeInput);
+class Day1Challenge : public Challenge {
 
-size_t challengePart2(const std::vector<std::string>& challengeInput);
+public:
+
+	Day1Challenge();
+
+	size_t challengePart1() const noexcept override;
+
+	size_t challengePart2() const noexcept override;
+
+private:
+
+	using location_lists_t = std::pair<std::vector<size_t>, std::vector<size_t>>;
+
+	const location_lists_t LOCATION_LISTS;
+
+	static location_lists_t buildLocationLists(const challenge_input_t &challengeInput);
+
+};
+
+}

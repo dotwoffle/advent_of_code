@@ -1,5 +1,7 @@
 #include "day1.hpp"
 
+#include "Challenge.hpp"
+
 #include <algorithm>
 #include <cstdlib>
 #include <iostream>
@@ -7,14 +9,16 @@
 #include <sstream>
 #include <utility>
 
-using location_lists_t = std::pair<std::vector<size_t>, std::vector<size_t>>;
+using namespace aoc;
 
-location_lists_t buildLocationLists(const std::vector<std::string>& challengeInput) {
-	
+Day1Challenge::Day1Challenge() : Challenge{ "inputs\\2024\\day1.txt" }, LOCATION_LISTS{ buildLocationLists(challengeInput) } {}
+
+Day1Challenge::location_lists_t Day1Challenge::buildLocationLists(const challenge_input_t& challengeInput) {
+
 	location_lists_t locationLists;
 
 	for (const std::string& line : challengeInput) {
-		
+
 		std::istringstream lineStream{ line };
 		size_t entry1, entry2;
 
@@ -29,34 +33,33 @@ location_lists_t buildLocationLists(const std::vector<std::string>& challengeInp
 
 }
 
-size_t challengePart1(const std::vector<std::string>& challengeInput) {
+size_t Day1Challenge::challengePart1() const noexcept {
 	
-	auto locationLists{ buildLocationLists(challengeInput) };
+	location_lists_t locationListsCopy{ LOCATION_LISTS };
 	size_t sum{ 0 };
 
-	std::sort(locationLists.first.begin(), locationLists.first.end());
-	std::sort(locationLists.second.begin(), locationLists.second.end());
+	std::sort(locationListsCopy.first.begin(), locationListsCopy.first.end());
+	std::sort(locationListsCopy.second.begin(), locationListsCopy.second.end());
 
-	for (size_t i = 0; i < locationLists.first.size(); i++) {
-		sum += std::labs(locationLists.first[i] - locationLists.second[i]);
+	for (size_t i = 0; i < locationListsCopy.first.size(); i++) {
+		sum += std::labs(locationListsCopy.first[i] - locationListsCopy.second[i]);
 	}
 
 	return sum;
 
 }
 
-size_t challengePart2(const std::vector<std::string>& challengeInput) {
+size_t Day1Challenge::challengePart2() const noexcept {
 	
-	auto locationLists{ buildLocationLists(challengeInput) };
 	std::set<size_t> uniqueFromFirstList;
 	size_t sum{ 0 };
 
-	for (size_t entry : locationLists.first) {
+	for (size_t entry : LOCATION_LISTS.first) {
 		uniqueFromFirstList.insert(entry);
 	}
 
 	for (size_t entry : uniqueFromFirstList) {
-		sum += entry * std::count(locationLists.second.begin(), locationLists.second.end(), entry);
+		sum += entry * std::count(LOCATION_LISTS.second.begin(), LOCATION_LISTS.second.end(), entry);
 	}
 
 	return sum;
