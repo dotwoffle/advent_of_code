@@ -1,5 +1,5 @@
 #include "Challenge.hpp"
-#include "day1.hpp"
+#include "day2.hpp"
 
 #include <iostream>
 #include <memory>
@@ -10,7 +10,7 @@ int main() {
     std::unique_ptr<aoc::Challenge> challenge;
 
     try {
-        challenge = std::make_unique<aoc::Day1Challenge>();
+        challenge = std::make_unique<aoc::Day2Challenge>();
     }
     catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;
