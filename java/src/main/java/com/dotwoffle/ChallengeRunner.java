@@ -3,6 +3,8 @@ package com.dotwoffle;
 import com.dotwoffle.common.Challenge;
 import com.dotwoffle.common.ChallengeFactory;
 
+import java.io.FileNotFoundException;
+
 public class ChallengeRunner {
 
     public static void main(String[] args) {
@@ -17,7 +19,11 @@ public class ChallengeRunner {
             throw new RuntimeException(e);
         }
 
-        challenge.run();
+        try {
+            challenge.run();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
