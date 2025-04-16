@@ -48,12 +48,14 @@ public abstract class Challenge {
     protected abstract int runPart2();
     protected void setup() {}
 
+    private static final String CONFIG_FILE_PATH = "src\\main\\resources\\config.toml";
+    private static final String INPUT_FILES_BASE_PATH_PROPERTY = "challengeInputsBasePath";
     private static final Path CHALLENGE_INPUTS_BASE_PATH;
 
     static {
-        FileConfig aocConfig = FileConfig.of("C:\\Users\\loren\\code\\advent_of_code\\java\\src\\main\\resources\\config.toml");
+        FileConfig aocConfig = FileConfig.of(CONFIG_FILE_PATH);
         aocConfig.load();
-        CHALLENGE_INPUTS_BASE_PATH = Path.of(aocConfig.<String>get("challengeInputsBasePath"));
+        CHALLENGE_INPUTS_BASE_PATH = Path.of(aocConfig.<String>get(INPUT_FILES_BASE_PATH_PROPERTY));
         aocConfig.close();
     }
 

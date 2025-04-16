@@ -11,6 +11,25 @@ import java.util.stream.Collectors;
 
 public class ChallengeFactory {
 
+    public static void registerChallenges(String packageName) {
+
+        Reflections r = new Reflections(packageName);
+        Set<Class<?>> annotatedChallengeClasses = r.get(Scanners.TypesAnnotated.with(ChallengeClass.class).asClass())
+                .stream()
+                .filter(Challenge.class::isAssignableFrom)
+                .collect(Collectors.toSet());
+
+        for(Class<?> c : annotatedChallengeClasses) {
+
+            Class<? extends Challenge> challengeClass = c.asSubclass(Challenge.class);
+            ChallengeClass anno = challengeClass.getAnnotation(ChallengeClass.class);
+
+            CHALLENGE_REGISTRY.put(new ChallengeKey(anno.year(), anno.day()), challengeClass);
+
+        }
+
+    }
+
     public static Challenge createChallenge(int year, int day) throws ReflectiveOperationException {
 
         ChallengeKey key = new ChallengeKey(year, day);
@@ -50,26 +69,6 @@ public class ChallengeFactory {
         }
 
     }
-
     private static final Map<ChallengeKey, Class<? extends Challenge>> CHALLENGE_REGISTRY = new HashMap<>();
-
-    static {
-
-        Reflections r = new Reflections("com.dotwoffle");
-        Set<Class<?>> annotatedChallengeClasses = r.get(Scanners.TypesAnnotated.with(ChallengeClass.class).asClass())
-                .stream()
-                .filter(Challenge.class::isAssignableFrom)
-                .collect(Collectors.toSet());
-
-        for(Class<?> c : annotatedChallengeClasses) {
-
-            Class<? extends Challenge> challengeClass = c.asSubclass(Challenge.class);
-            ChallengeClass anno = challengeClass.getAnnotation(ChallengeClass.class);
-
-            CHALLENGE_REGISTRY.put(new ChallengeKey(anno.year(), anno.day()), challengeClass);
-
-        }
-
-    }
 
 }

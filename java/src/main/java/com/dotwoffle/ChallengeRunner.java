@@ -9,6 +9,8 @@ public class ChallengeRunner {
 
     public static void main(String[] args) {
 
+        ChallengeFactory.registerChallenges(ChallengeRunner.class.getPackageName());
+
         int year = Integer.parseInt(args[0]);
         int day = Integer.parseInt(args[1]);
         Challenge challenge;
