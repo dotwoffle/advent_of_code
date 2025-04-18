@@ -17,13 +17,13 @@ public abstract class Challenge {
     public void run() throws FileNotFoundException {
 
         loadChallengeInput();
-        setup();
+        challengeSetup();
 
+        partSetup();
         System.out.println("---------- CHALLENGE PART 1 ----------");
         System.out.println(runPart1());
 
-        setup();
-
+        partSetup();
         System.out.println("---------- CHALLENGE PART 2 ----------");
         System.out.println(runPart2());
 
@@ -46,7 +46,8 @@ public abstract class Challenge {
 
     protected abstract int runPart1();
     protected abstract int runPart2();
-    protected void setup() {}
+    protected void challengeSetup() {}
+    protected void partSetup() {}
 
     private static final String CONFIG_FILE_PATH = "src\\main\\resources\\config.toml";
     private static final String INPUT_FILES_BASE_PATH_PROPERTY = "challengeInputsBasePath";
